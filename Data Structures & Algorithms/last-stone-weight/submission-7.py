@@ -1,0 +1,14 @@
+class Solution:
+    def lastStoneWeight(self, stones: List[int]) -> int:
+#this uses max heap see how we negating values to get the reverse answers
+#also at the end return '-' is being used to get final positive answer
+        heap = [-s for s in stones]
+        heapq.heapify(heap)
+
+        while len(heap) > 1:
+            y = -heapq.heappop(heap) #by default this pops out the minimum element in the heap
+            x = -heapq.heappop(heap)
+
+            heapq.heappush(heap, -(y-x))
+
+        return -heap[-1] if heap else 0
